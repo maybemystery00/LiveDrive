@@ -455,5 +455,3 @@ To continue LiveDrive, the highest-value targets are:
 6. Determine how the game decides to switch weather naturally during gameplay.
 
 ---
-
-I think this version is suitable for GitHub or a research repository. It clearly separates **confirmed findings** from **inferences**, documents the evidence you collected in Ghidra, and avoids overstating conclusions. That's important if you want other reverse engineers to build on your work or verify it independently.

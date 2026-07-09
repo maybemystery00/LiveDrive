@@ -1,0 +1,3 @@
+D:/Projects/LiveDrive/build/CMakeFiles/LiveDrive.dir
+D:/Projects/LiveDrive/build/CMakeFiles/edit_cache.dir
+D:/Projects/LiveDrive/build/CMakeFiles/rebuild_cache.dir

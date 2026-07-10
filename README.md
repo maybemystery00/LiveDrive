@@ -5,7 +5,7 @@
 ![Status](https://img.shields.io/badge/status-early%20development-orange)
 ![Language](https://img.shields.io/badge/language-C%2B%2B20-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
-![License](https://img.shields.io/badge/license-GPL--3.0-green)
+![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
 ---
 

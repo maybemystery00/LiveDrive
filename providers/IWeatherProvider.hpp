@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../core/Location.hpp"
 #include "../core/WeatherSnapshot.hpp"
 
 class IWeatherProvider
@@ -7,5 +8,6 @@ class IWeatherProvider
 public:
     virtual ~IWeatherProvider() = default;
 
-    virtual WeatherSnapshot Fetch() = 0;
+    /** @brief Fetches weather for the supplied normalized location. */
+    virtual WeatherSnapshot Fetch(const Location& location) = 0;
 };

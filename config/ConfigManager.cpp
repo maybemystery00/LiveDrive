@@ -205,7 +205,7 @@ Config ConfigManager::Load() const
             {"manual", "user", "in_game"});
         config.latitude = ReadCoordinate(json, "latitude", DEFAULT_LATITUDE, MIN_LATITUDE, MAX_LATITUDE);
         config.longitude = ReadCoordinate(json, "longitude", DEFAULT_LONGITUDE, MIN_LONGITUDE, MAX_LONGITUDE);
-        config.weatherProvider = ReadStringValue(json, "weatherProvider", config.weatherProvider, {"mock"});
+    config.weatherProvider = ReadStringValue(json, "weatherProvider", config.weatherProvider, {"mock", "openmeteo"});
         config.updateInterval = ReadUpdateInterval(json);
         config.units = ReadStringValue(json, "units", config.units, {"metric", "imperial"});
         config.logLevel = ReadStringValue(

@@ -7,14 +7,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(nlohmann_json CONFIG REQUIRED)
+find_package(CURL REQUIRED)
 
 add_executable(LiveDrive
     app/main.cpp
     config/Config.cpp
     config/ConfigManager.cpp
+    http/HttpClient.cpp
     providers/ManualLocationProvider.cpp
     providers/MockLocationProvider.cpp
     providers/MockWeatherProvider.cpp
+    providers/OpenMeteoWeatherProvider.cpp
 )
 
-target_link_libraries(LiveDrive PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(LiveDrive PRIVATE CURL::libcurl nlohmann_json::nlohmann_json)

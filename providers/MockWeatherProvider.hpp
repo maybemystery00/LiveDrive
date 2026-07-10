@@ -5,5 +5,6 @@
 class MockWeatherProvider : public IWeatherProvider
 {
 public:
-    WeatherSnapshot Fetch() override;
+    /** @brief Returns fixed weather data regardless of location for testing. */
+    WeatherSnapshot Fetch(const Location& location) override;
 };

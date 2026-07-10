@@ -1,6 +1,7 @@
 #include "../config/ConfigManager.hpp"
 #include "../providers/ManualLocationProvider.hpp"
 #include "../providers/MockWeatherProvider.hpp"
+#include "../providers/OpenMeteoWeatherProvider.hpp"
 
 #include <filesystem>
 #include <iostream>
@@ -31,6 +32,33 @@ namespace
                   << "' is not implemented. Falling back to manual coordinates.\n";
         return std::make_unique<ManualLocationProvider>(config.latitude, config.longitude);
     }
+
+    WeatherSnapshot FetchWeather(const Config& config, const Location& location, std::string& activeProvider)
+    {
+        if (config.weatherProvider == "openmeteo")
+        {
+            OpenMeteoWeatherProvider provider;
+            WeatherSnapshot weather = provider.Fetch(location);
+
+            if (provider.IsLastFetchSuccessful())
+            {
+                activeProvider = "Open-Meteo";
+                return weather;
+            }
+
+            std::cerr << "Open-Meteo request failed: " << provider.GetLastError()
+                      << " Falling back to MockWeatherProvider.\n";
+        }
+        else if (config.weatherProvider != "mock")
+        {
+            std::cerr << "Unknown weather provider '" << config.weatherProvider
+                      << "'. Falling back to MockWeatherProvider.\n";
+        }
+
+        MockWeatherProvider provider;
+        activeProvider = "MockWeatherProvider";
+        return provider.Fetch(location);
+    }
 }
 
 int main(int, char* argv[])
@@ -42,10 +70,9 @@ int main(int, char* argv[])
     Config config = configManager.Load();
 
     std::unique_ptr<ILocationProvider> locationProvider = CreateLocationProvider(config);
-    MockWeatherProvider provider;
-
     Location location = locationProvider->GetLocation();
-    WeatherSnapshot weather = provider.Fetch();
+    std::string activeProvider;
+    WeatherSnapshot weather = FetchWeather(config, location, activeProvider);
 
     std::cout << "===== LiveDrive =====\n\n";
 
@@ -54,6 +81,9 @@ int main(int, char* argv[])
     std::cout << "Latitude    : " << location.latitude << '\n';
     std::cout << "Longitude   : " << location.longitude << '\n';
     std::cout << '\n';
+
+    std::cout << "Weather Source\n";
+    std::cout << "Provider          : " << activeProvider << "\n\n";
 
     std::cout << "Temperature : " << weather.temperatureC << " °C\n";
     std::cout << "Humidity    : " << weather.humidity << " %\n";

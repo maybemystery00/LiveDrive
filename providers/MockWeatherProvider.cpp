@@ -1,6 +1,6 @@
 #include "MockWeatherProvider.hpp"
 
-WeatherSnapshot MockWeatherProvider::Fetch()
+WeatherSnapshot MockWeatherProvider::Fetch(const Location&)
 {
     WeatherSnapshot weather;
 
